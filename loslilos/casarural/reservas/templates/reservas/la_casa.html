@@ -1,0 +1,144 @@
+<!-- reservas/templates/reservas/la_casa.html -->
+
+{% extends 'reservas/base.html' %}
+{% load static %}
+
+{% block title %}Contacto - Casa Rural Los Lilos{% endblock %}
+
+{% block content %}
+<style>
+    h2 {
+        color: #6C4675;
+        margin-bottom: 30px;
+    }
+
+    p {
+        color: #333;
+        font-size: 18px;
+        line-height: 1.6;
+        margin-bottom: 30px;
+    }
+
+    .card {
+        border: none;
+        border-radius: 15px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s;
+        margin-bottom: 30px;
+        background: linear-gradient(145deg, rgba(140, 93, 154, 0.9), rgba(140, 93, 154, 0.6)); /* Degradado */
+    }
+
+    .card:hover {
+        transform: scale(1.05);
+    }
+
+    .card img {
+        border-radius: 15px 15px 0 0;
+        height: 250px; /* Tamaño fijo para todas las imágenes */
+        object-fit: cover; /* Ajusta la imagen dentro del contenedor */
+    }
+
+    .media img {
+        border-radius: 15px;
+        height: 250px; /* Tamaño fijo para todas las imágenes */
+        object-fit: cover; /* Ajusta la imagen dentro del contenedor */
+    }
+
+    .media-body {
+        padding: 20px;
+    }
+
+    .container {
+        margin-top: 30px;
+    }
+    
+    main {
+        padding-bottom: 100px; /* Aumento del espacio entre el footer y el contenido */
+        flex: 1;
+    }
+
+
+</style>
+<h2 class="text-center">La Casa</h2>
+
+
+<div class="container">
+    <div class="row">
+        <!-- Card 1 -->
+        <div class="col-md-4">
+            <div class="card">
+                <img src="{% static 'reservas/img/benceire.jpeg' %}" class="card-img-top" alt="Benceire">
+                <div class="card-body">
+                    <h5 class="card-title">Benceire</h5>
+                    <p class="card-text">Habitación individual con plegatín</p>
+                </div>
+            </div>
+        </div>
+        <!-- Card 2 -->
+        <div class="col-md-4">
+            <div class="card">
+                <img src="{% static 'reservas/img/mamotre.jpeg' %}" class="card-img-top" alt="Mamotre">
+                <div class="card-body">
+                    <h5 class="card-title">Mamotre</h5>
+                    <p class="card-text">Habitación con cama de matrimonio</p>
+                </div>
+            </div>
+        </div>
+        <!-- Card 3 -->
+        <div class="col-md-4">
+            <div class="card">
+                <img src="{% static 'reservas/img/zumaqueras.jpeg' %}" class="card-img-top" alt="Habitación 3">
+                <div class="card-body">
+                    <h5 class="card-title">Zumaqueras</h5>
+                    <p class="card-text">Habitación doble con posibilidad de cuna</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br>
+    <br>
+    <p class="text-center">Detalles y características de la casa rural.</p>
+    <!-- Text and Images -->
+    <div class="row mt-4">
+        <!-- Text with Image on Left -->
+        <div class="col-md-6">
+            <div class="media">
+                <img src="{% static 'reservas/img/cocina.jpg' %}" class="mr-3" alt="Imagen 1" style="width: 300px; height: 250px;">
+                <div class="media-body">
+                    <h5 class="mt-0">Cocina</h5>
+                    <p>Nuestra cocina con barra americana permite realizar todas las labores propias con la mayor comodidad posible</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="media">
+                <img src="{% static 'reservas/img/hogar.jpg' %}" class="mr-3" alt="Imagen 1" style="width: 300px; height: 250px;">
+                <div class="media-body">
+                    <h5 class="mt-0">Hogar</h5>
+                    <p>Para los días de frío...y no tan fríos. Si simplemente quieres sentarte a leer un libro al lado de una chimenea típica aragonesa, es tu sitio</p>
+                </div>
+            </div>
+        </div>
+        <!-- Text with Image on Right -->
+        <div class="col-md-6">
+            <div class="media">
+                <div class="media-body">
+                    <h5 class="mt-0">Cuna</h5>
+                    <p>¡Tu bebé también tiene sitio. Disponemos de una cuna para que los más pequeños de la familia se sientan como en casa. </p>
+                </div>
+                <img src="{% static 'reservas/img/cuna.jpg' %}" class="ml-3" alt="Imagen 2" style="width: 300px; height: 250px;">
+            </div>
+        </div>
+        
+        <div class="col-md-6">
+            <div class="media">
+                <div class="media-body">
+                    <h5 class="mt-0">Jardín</h5>
+                    <p>Un precioso jardín de lilos (entre muchos otros) te espera en Casa Rural Los Lilos. Ideal para relajarse mirando el atardecer en la Cara Oculta del Moncayo</p>
+                </div>
+                <img src="{% static 'reservas/img/jardin.jpg' %}" class="ml-3" alt="Imagen 2" style="width: 300px; height: 250px;">
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

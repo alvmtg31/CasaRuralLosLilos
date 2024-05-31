@@ -1,0 +1,47 @@
+{% extends 'reservas/base.html' %}
+
+{% block title %}Entorno - Casa Rural{% endblock %}
+
+{% load static %}
+
+{% block content %}
+<h2>Entorno</h2>
+<p>Información sobre el entorno y actividades cercanas.</p>
+<br>
+<br>
+<br>
+<br>
+
+<div class="row">
+    <div class="col-sm-4">
+      <div class="card">
+        <img src="{% static 'reservas/img/migas.jpg' %}" class="card-img-top" alt="Imagen 1" style="height: 350px;">
+        <div class="card-body">
+          <h5 class="card-title" style="font-weight: bold;">Gastronomía</h5>
+          <p class="card-text">Disfruta de la gastronomía típica de nuestra zona.</p>
+          <a href="/gastronomia" class="btn btn-primary" style="background-color: rgba(108, 70, 117, 0.9);">Descubre más</a>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-4">
+      <div class="card">
+        <img src="{% static 'reservas/img/entorno.jpeg' %}" class="card-img-top" alt="Imagen 2" style="height: 350px;">
+        <div class="card-body">
+          <h5 class="card-title" style="font-weight: bold;">Actividades</h5>
+          <p class="card-text">Un mundo de actividades al aire libre te espera en Gotor y su entorno</p>
+          <a href="/actividades" class="btn btn-primary" style="background-color: rgba(108, 70, 117, 0.9);">Descubre más</a>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-4">
+      <div class="card">
+        <img src="{% static 'reservas/img/gotor1.jpg' %}" class="card-img-top" alt="Imagen 3" style="height: 350px;">
+        <div class="card-body">
+          <h5 class="card-title" style="font-weight: bold;">Gotor</h5>
+          <p class="card-text">Vive Gotor, su gente y todo lo que tiene para tí</p>
+          <a href="/gotor" class="btn btn-primary" style="background-color: rgba(108, 70, 117, 0.9);">Descubre más</a>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}

@@ -1,0 +1,119 @@
+{% extends 'reservas/base.html' %}
+{% load static %}
+
+{% block title %}Actividades - Casa Rural{% endblock %}
+
+{% block content %}
+<!--Section: FAQ-->
+<style>
+    /* Estilos personalizados */
+    .faq-section {
+        background-color: #f9f9f9;
+        padding: 50px 0;
+    }
+
+    .faq-title {
+        color: rgba(108, 70, 117, 0.9); /* Color ajustado */
+        font-size: 2.5rem; /* Tamaño de letra aumentado */
+        font-weight: bold;
+        text-align: center;
+        margin-bottom: 30px;
+    }
+
+    .faq-subtitle {
+        color: #6c757d;
+        font-size: 1.5rem; /* Tamaño de letra aumentado */
+        text-align: center;
+        margin-bottom: 50px;
+    }
+
+    .faq-item {
+        background-color: #fff;
+        padding: 30px;
+        border-radius: 10px;
+        box-shadow: 0px 0px 15px 0px rgba(0, 0, 0, 0.1);
+    }
+
+    .faq-item h6 {
+        color: rgba(108, 70, 117, 0.9); /* Color ajustado */
+        font-size: 1.8rem; /* Tamaño de letra aumentado */
+        font-weight: bold;
+        margin-bottom: 20px;
+    }
+
+    .faq-item p {
+        color: #444;
+        font-size: 1.2rem; /* Tamaño de letra aumentado */
+    }
+
+    .faq-item i {
+        font-size: 2rem; /* Tamaño de letra aumentado */
+        margin-right: 15px; /* Espacio entre icono y texto aumentado */
+    }
+
+    /* Estilos para el carrusel */
+    #carouselExampleSlidesOnly {
+        max-width: 300px; /* Ancho máximo del carrusel */
+        margin: 0 auto; /* Centrar el carrusel */
+    }
+
+    #carouselExampleSlidesOnly .carousel-item img {
+        max-height: 150px; /* Altura máxima de la imagen del carrusel */
+        width: auto;
+        margin: 0 auto; /* Centrar la imagen horizontalmente */
+    }
+
+    /* Estilos para las imágenes en línea */
+    .image-container {
+        text-align: center;
+        margin-top: 50px; /* Espacio superior */
+    }
+
+    .image-container img {
+        width: 200px; /* Ancho fijo */
+        height: 200px; /* Altura fija */
+        object-fit: cover; /* Para recortar y ajustar el tamaño de la imagen */
+        border: 2px solid #ccc; /* Borde de 2px sólido gris claro */
+        border-radius: 10px; /* Borde redondeado */
+        margin: 0 10px; /* Espacio entre imágenes */
+    }
+</style>
+
+<section class="faq-section">
+    <div class="container">
+        <h3 class="faq-title">Dsifruta de la plena naturaleza</h3>
+        <p class="faq-subtitle">La cara oculta del Moncayo te espera</p>
+        <div class="row">
+            <div class="col-md-6 col-lg-4 mb-4">
+                <div class="faq-item">
+                    <h6><i class="far fa-paper-plane"></i>Una multitud de actividades</h6>
+                    <p><strong><u></u></strong> Desde rutas a pie, en bicicleta e incluso a caballo, la Comarca del Aranda y Gotor te ofrecen multiples actividades para disfrutar de la plena naturaleza. Mesones de Isuela, Jarque de Moncayo e incluso Gotor conservan todavía restos de sus fortalezas, siendo estas un buen plan para visitar </p>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-4 mb-4">
+                <div class="faq-item">
+                    <h6><i class="far fa-paper-plane"></i>El calzado como tradición</h6>
+                    <p><strong><u></u></strong> Si alguien conoce la Comarca del Aranda, es por su tradición zapatera. Antiguamente, la zona ecabezaba la fabricación de dicha prenda. Todavía quedan algunos vestigios para poder comprobarlo, como el museo zapatero de Brea de Aragón o las tiendas de zapatos en Illueca.</p>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-4 mb-4">
+                <div class="faq-item">
+                    <h6><i class="far fa-paper-plane"></i>Un entorno envidiable</h6>
+                    <p><strong><u></u></strong>Con una via verde que conecta los pueblos principales de la zona, la Comarca del Aranda ofrece multitud de opciones para ciclistas, viandantes y todo tipo de visitantes. Además, es una vía de comunicación muy importante para noreuropeos en sus rutas ciclistas. </p>
+                </div>
+            </div>
+            <!-- Repite para los demás elementos -->
+        </div>
+    </div>
+</section>
+
+<!-- Imágenes en línea -->
+<div class="image-container">
+    <img src="{% static 'reservas/img/castillo_mesones.jpg' %}" alt="Imagen 1">
+    <img src="{% static 'reservas/img/papaluna.jpg' %}" alt="Imagen 2">
+    <img src="{% static 'reservas/img/calcena.jpg' %}" alt="Imagen 3">
+    <img src="{% static 'reservas/img/museo_calzado.jpeg' %}" alt="Imagen 3">
+    <img src="{% static 'reservas/img/jarque.jpeg' %}" alt="Imagen 3">
+</div>
+
+{% endblock %}

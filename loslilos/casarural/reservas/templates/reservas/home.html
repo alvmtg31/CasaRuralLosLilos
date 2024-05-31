@@ -1,0 +1,67 @@
+{% extends 'reservas/base.html' %}
+{% load static %}
+
+{% block title %}Inicio - Casa Rural{% endblock %}
+
+{% block content %}
+<br>
+<br>
+<h2 class="text-center">Casa Rural Los Lilos</h2>
+<p class="faq-subtitle">Un pequeño rinconcito en un precioso enclave</p>
+
+<div class="container">
+    <div id="myCarousel" class="carousel slide small-carousel" data-ride="carousel">
+        <ol class="carousel-indicators">
+            <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+            <li data-target="#myCarousel" data-slide-to="1"></li>
+            <li data-target="#myCarousel" data-slide-to="2"></li>
+            <li data-target="#myCarousel" data-slide-to="3"></li>
+        </ol>
+
+        <!-- Wrapper for slides -->
+        <div class="carousel-inner">
+            <div class="item active">
+                <img src="{% static 'reservas/img/hogar.jpg' %}" alt="Los Angeles" class="carousel-image">
+                <div class="carousel-caption">
+                    <h3>Hogar tradicional aragonés</h3>
+                    <p>Disfruta del calor de la leña en los días de invierno</p>
+                </div>
+            </div>
+
+            <div class="item">
+                <img src="{% static 'reservas/img/cocina.jpg' %}" alt="Chicago" class="carousel-image">
+                <div class="carousel-caption">
+                    <h3>Cocina americana</h3>
+                    <p>Practica para cocinar sin límites</p>
+                </div>
+            </div>
+
+            <div class="item">
+                <img src="{% static 'reservas/img/entorno.jpeg' %}" alt="New York" class="carousel-image">
+                <div class="carousel-caption">
+                    <h3>Un pueblo con encanto</h3>
+                    <p>Disfruta de Gotor en todo su esplendor</p>
+                </div>
+            </div>
+            
+            <div class="item">
+                <img src="{% static 'reservas/img/jardi1.jpg' %}" alt="New York" class="carousel-image">
+                <div class="carousel-caption">
+                    <h3>Vive nuestro hermoso jardín</h3>
+                    <p>¡Disfruta de los cerezos en flor!</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Left and right controls -->
+        <a class="left carousel-control" href="#myCarousel" data-slide="prev">
+            <span class="glyphicon glyphicon-chevron-left"></span>
+            <span class="sr-only">Previous</span>
+        </a>
+        <a class="right carousel-control" href="#myCarousel" data-slide="next">
+            <span class="glyphicon glyphicon-chevron-right"></span>
+            <span class="sr-only">Next</span>
+        </a>
+    </div>
+</div>
+{% endblock %}

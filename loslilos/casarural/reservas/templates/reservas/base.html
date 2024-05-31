@@ -1,0 +1,266 @@
+<DOCTYPE html>
+    <html lang="es">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>{% block title %}Casa Rural{% endblock %}</title>
+        {% load static %}
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+        <link href="https://fonts.googleapis.com/css?family=Sansita" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
+    </head>
+    <style>
+        @font-face {
+            font-family: 'Nexa';
+            src: url("{% static 'reservas/fonts/Nexa-Heavy.ttf' %}") format("truetype");
+        }
+    
+        body {
+            font-family: 'Nexa', Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f5f5f5;
+        }
+    
+        .carousel-text {
+            color: black; /* Cambia el color del texto del carrusel a negro */
+        }
+    
+        .carousel h1,
+        .carousel p {
+            color: black; /* Cambia el color del texto del carrusel a negro */
+        }
+    
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: rgba(108, 70, 117, 0.9); /* Añade transparencia al menú */
+            padding: 1em 2em;
+            color: white;
+            z-index: 1000;
+        }
+    
+        /* Agrega aquí el CSS del carrusel */
+        .carousel {
+          display: flex;
+          overflow: hidden;
+          position: relative;
+        }
+    
+        .carousel-slide {
+          display: none;
+          flex: 1;
+        }
+    
+        .carousel-slide img {
+          width: 100%;
+          height: auto;
+        }
+    
+        .carousel-open:checked + .carousel-slide {
+          display: block;
+        }
+    
+        .carousel-control {
+          cursor: pointer;
+          position: absolute;
+          top: 50%;
+          transform: translateY(-50%);
+          font-size: 2em;
+          background-color: rgba(0, 0, 0, 0.5);
+          color: white;
+          padding: 10px;
+          z-index: 100;
+        }
+    
+        .prev {
+          left: 0;
+        }
+    
+        .next {
+          right: 0;
+        }
+    
+        .logo img {
+            height: 50px;
+        }
+    
+        .login-form {
+            margin-left: auto;
+        }
+    
+        .login-form input {
+            margin: 0 5px;
+            padding: 5px;
+            border-radius: 4px;
+            border: none;
+            color: rgba(108, 70, 117, 0.9);
+        }
+    
+        .login-form button {
+            padding: 5px 10px;
+            border: none;
+            border-radius: 4px;
+            background-color: rgba(108, 70, 117, 0.9);
+            color: white;
+        }
+    
+        .login-form button:hover {
+            background-color: rgba(140, 93, 154, 0.9);
+        }
+    
+        nav {
+            flex-grow: 1;
+        }
+    
+        nav ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center; /* Centra los elementos del menú */
+            gap: 1em;
+        }
+    
+        nav ul li {
+            display: inline;
+            position: relative;
+        }
+    
+        nav ul li a {
+            color: white !important; /* Asegura que el color del texto sea blanco */
+            text-decoration: none;
+            font-size: 1.1em; /* Incrementa el tamaño de la fuente */
+            padding: 0.7em 1.2em; /* Incrementa el padding */
+            transition: background-color 0.3s;
+        }
+    
+        nav ul li a:hover {
+            background-color: rgba(140, 93, 154, 0.9); /* Cambia el color de fondo del hover */
+            border-radius: 4px;
+        }
+    
+        nav ul li ul {
+            display: none;
+            position: absolute;
+            background-color: rgba(108, 70, 117, 0.9); /* Fondo transparente para el desplegable */
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+            top: 100%;
+            left: 0;
+            border-radius: 4px;
+        }
+    
+        nav ul li:hover > ul {
+            display: block;
+        }
+    
+        nav ul li ul li {
+            width: 200px; /* Ancho del desplegable */
+        }
+    
+        nav ul li ul li a {
+            display: block;
+            padding: 0.7em 1.2em; /* Incrementa el padding */
+            color: white !important; /* Asegura que el color del texto sea blanco */
+        }
+    
+        nav ul li ul li a:hover {
+            background-color: rgba(140, 93, 154, 0.9); /* Fondo hover para los elementos del desplegable */
+        }
+    
+        nav ul li ul li {
+            margin-bottom: 0.5em; /* Añade separación entre los elementos del menú desplegable */
+        }
+    
+        .admin-button {
+            margin-left: auto;
+            padding: 0.7em 1.2em; /* Incrementa el padding */
+            border: none;
+            border-radius: 4px;
+            background-color: rgba(108, 70, 117, 0.9);
+            color: white;
+            text-decoration: none;
+            font-size: 1.1em; /* Incrementa el tamaño de la fuente */
+            transition: background-color 0.3s;
+        }
+    
+        .admin-button:hover {
+            background-color: rgba(140, 93, 154, 0.9);
+        }
+    
+        main {
+            text-align: center;
+            flex: 1;
+        }
+    
+        footer {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            width: 100%;
+            position: fixed; /* Fija el pie de página */
+            bottom: 0;
+        }
+    
+        .small-carousel {
+            max-height: 700px; /* Aumenta la altura del carrusel */
+            overflow: hidden;
+            margin-top: 100px; /* Mantén este valor para asegurar el espacio entre el menú y el carrusel */
+        }
+        
+        .small-carousel .carousel-inner > .item > img {
+            width: 100%;
+            height: auto;
+            max-height: 500px; /* Aumenta la altura máxima de las imágenes */
+            object-fit: cover; /* Escala las imágenes para cubrir el contenedor */
+        }
+        
+        .small-carousel .carousel-caption {
+            background-color: rgba(0, 0, 0, 0.5); /* Fondo semi-transparente para mejorar la legibilidad */
+            padding: 10px;
+            border-radius: 4px;
+        }
+        
+        
+        
+    </style>
+    <body>
+        <header>
+            <div class="logo">
+                <img src="{% static 'reservas/img/logo.png' %}" alt="Logo Casa Rural">
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="{% url 'home' %}">Inicio</a></li>
+                    <li><a href="{% url 'la_casa' %}">La Casa</a></li>
+                    <li><a href="{% url 'reservas' %}">Reservas</a></li>
+                    <li>
+                        <a href="{% url 'entorno' %}">Entorno</a>
+                        <ul>
+                            <li><a href="{% url 'actividades' %}">Actividades</a></li>
+                            <li><a href="{% url 'gotor' %}">Gotor</a></li>
+                            <li><a href="{% url 'gastronomia' %}">Gastronomía</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="{% url 'contacto' %}">Contacto</a></li>
+                </ul>
+            </nav>
+            <a href="/admin" class="admin-button">Administración</a>
+        </header>
+        <main>
+            {% block content %}
+            <!-- Contenido específico de cada página -->
+            {% endblock %}
+        </main>
+        <footer>
+            <p>&copy; 2024 Casa Rural. Todos los derechos reservados.</p>
+        </footer>
+        {% csrf_token %}
+    </body>
+    </html>
+    
