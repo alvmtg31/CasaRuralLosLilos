@@ -1,4 +1,3 @@
-
 {% extends 'reservas/base.html' %}
 
 {% block title %}Reservar - Casa Rural{% endblock %}
@@ -11,19 +10,134 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            width: 80%;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .booking-info, .booking-form {
+            margin-bottom: 20px;
+        }
+        .booking-form label {
+            display: block;
+            margin: 10px 0 5px;
+        }
+        .booking-form input, .booking-form textarea {
+            width: 100%;
+            padding: 8px;
+            box-sizing: border-box;
+        }
+        .booking-form textarea {
+            height: 100px;
+            resize: vertical;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .announcement {
+            background-color: #f8d7da;
+            color: #721c24;
+            padding: 10px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+        .price-info {
+            margin-top: 15px;
+            font-size: 1.2em;
+            font-weight: bold;
+        }
+    </style>
+    <script>
+        function calcularPrecio() {
+            const precioPorNoche = 70; // Precio por noche en euros
+            const entrada = document.getElementById('fecha_entrada').value;
+            const salida = document.getElementById('fecha_salida').value;
+            const precioInfo = document.getElementById('precio');
+
+            if (entrada && salida) {
+                const fechaEntrada = new Date(entrada);
+                const fechaSalida = new Date(salida);
+                const diferenciaTiempo = fechaSalida - fechaEntrada;
+                const diferenciaDias = diferenciaTiempo / (1000 * 60 * 60 * 24);
+                
+                if (diferenciaDias > 0) {
+                    const precioTotal = diferenciaDias * precioPorNoche;
+                    precioInfo.textContent = `Precio total: ${precioTotal.toFixed(2)} euros`;
+                } else {
+                    precioInfo.textContent = 'La fecha de salida debe ser posterior a la fecha de entrada.';
+                }
+            } else {
+                precioInfo.textContent = 'Por favor, seleccione las fechas de entrada y salida.';
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', function () {
+            document.getElementById('fecha_entrada').addEventListener('change', calcularPrecio);
+            document.getElementById('fecha_salida').addEventListener('change', calcularPrecio);
+        });
+    </script>
 </head>
 <body>
     <div class="container">
-        <div class="booking-info">
-            <h1>¡Reserva tu estadía con nosotros!</h1>
-            <p>Nuestras reservas son gestionadas directamente por <strong>Booking.com</strong>. Por favor, haz clic en el siguiente enlace para hacer tu reserva:</p>
-            <a href="https://www.booking.com/Share-725Xpo" target="_blank">Reservar en Booking.com</a>
+        
+        <div class="announcement">
+            <p>El pago se realizará en efectivo en el alojamiento.</p>
         </div>
+        
+        <div class="booking-form">
+            <h2>Formulario de Reserva</h2>
+            <form action="#" method="post">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label for="nombre">Nombre:</label>
+                    <input type="text" id="nombre" name="nombre" required>
+                </div>
+                <div class="form-group">
+                    <label for="apellidos">Apellidos:</label>
+                    <input type="text" id="apellidos" name="apellidos" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email:</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="telefono">Teléfono:</label>
+                    <input type="tel" id="telefono" name="telefono" required>
+                </div>
+                <div class="form-group">
+                    <label for="direccion">Dirección:</label>
+                    <input type="text" id="direccion" name="direccion" required>
+                </div>
+                <div class="form-group">
+                    <label for="personas">Número de personas:</label>
+                    <input type="number" id="personas" name="personas" min="1" required>
+                </div>
+                <div class="form-group">
+                    <label for="fecha_entrada">Fecha de entrada:</label>
+                    <input type="date" id="fecha_entrada" name="fecha_entrada" required>
+                </div>
+                <div class="form-group">
+                    <label for="fecha_salida">Fecha de salida:</label>
+                    <input type="date" id="fecha_salida" name="fecha_salida" required>
+                </div>
+                <div class="form-group">
+                    <label for="comentario">Comentario adicional:</label>
+                    <textarea id="comentario" name="comentario"></textarea>
+                </div>
+                <div class="price-info" id="precio">Precio total: 0.00 euros</div>
+                <button type="submit">Enviar Reserva</button>
+            </form>
+        </div>
+        
         <!-- Aquí puedes agregar más información sobre tu propiedad, servicios, etc. -->
     </div>
-    
 </body>
 </html>
 
 {% endblock %}
-

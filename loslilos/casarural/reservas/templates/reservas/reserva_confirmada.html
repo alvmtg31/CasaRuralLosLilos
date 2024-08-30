@@ -1,0 +1,65 @@
+{% extends 'reservas/base.html' %}
+
+{% block title %}Gracias por tu Reserva - Casa Rural{% endblock %}
+
+{% load static %}
+
+{% block content %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f8ff;
+        }
+        .container {
+            width: 80%;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .thank-you-message {
+            text-align: center;
+            margin-top: 50px;
+        }
+        .thank-you-message h1 {
+            color: #28a745;
+        }
+        .thank-you-message p {
+            font-size: 18px;
+            color: #333;
+        }
+        .thank-you-message a {
+            color: #007bff;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        .thank-you-message a:hover {
+            text-decoration: underline;
+        }
+        .additional-info {
+            margin-top: 30px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="thank-you-message">
+            <h1>¡Gracias por tu Reserva!</h1>
+            <p>Tu reserva ha sido recibida y estamos encantados de confirmarla. En breve, te enviaremos un correo electrónico con los detalles de tu estancia.</p>
+            <p>Si tienes alguna pregunta o necesitas realizar cambios en tu reserva, no dudes en <a href="mailto:info@casarural.com">contactarnos</a>.</p>
+        </div>
+        
+        <div class="additional-info">
+            <h2>Información Adicional</h2>
+            <p>Recuerda que el pago se realizará en efectivo en el alojamiento. Para más detalles sobre cómo llegar y qué esperar durante tu estancia, por favor, consulta nuestro.</p>
+        </div>
+    </div>
+</body>
+</html>
+
+{% endblock %}
