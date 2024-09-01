@@ -1,0 +1,25 @@
+asgiref==3.8.1
+base==0.0.0
+certifi==2024.2.2
+charset-normalizer==3.3.2
+colored==2.2.4
+Django==5.0.4
+django-crispy-forms==2.1
+django-debug-toolbar==4.3.0
+django-shortcuts==1.6
+Gooey==1.0.8.1
+gunicorn==23.0.0
+idna==3.6
+mutagen==1.47.0
+packaging==24.1
+pillow==10.2.0
+psutil==5.9.8
+pygtrie==2.5.0
+requests==2.31.0
+six==1.16.0
+sqlparse==0.4.4
+twspace-dl @ git+https://github.com/HoloArchivists/twspace-dl@d84b24d42720dfbfd81d5cb2bff7cc62f92ee243
+tzdata==2024.1
+urllib3==2.2.1
+whitenoise==6.7.0
+wxPython==4.2.1
