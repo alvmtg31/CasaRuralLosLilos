@@ -32,21 +32,19 @@ class Cliente(models.Model):
         return f'{self.nombre} {self.apellidos}'
 
 class Reserva(models.Model):
-    ESTADO_CHOICES = [
-        ('pendiente', 'Pendiente'),
-        ('confirmada', 'Confirmada'),
-        ('cancelada', 'Cancelada'),
-    ]
-
-    cliente = models.ForeignKey(Cliente, on_delete=models.CASCADE)
-    casa_rural = models.ForeignKey(CasaRural, on_delete=models.CASCADE)
-    fecha_inicio = models.DateField()
-    fecha_fin = models.DateField()
-    total = models.DecimalField(max_digits=10, decimal_places=2)
-    estado = models.CharField(max_length=50, choices=ESTADO_CHOICES, default='pendiente')
+    nombre = models.CharField(max_length=100)
+    apellidos = models.CharField(max_length=100, default='Apellido')  # Valor predeterminado agregado aquí
+    email = models.EmailField()
+    telefono = models.CharField(max_length=15)
+    direccion = models.CharField(max_length=200)
+    personas = models.PositiveIntegerField()
+    comentario = models.TextField(blank=True, null=True)
+    fecha_inicio = models.DateField()  # Fecha de entrada
+    fecha_fin = models.DateField()     # Fecha de salida
+    precio_total = models.DecimalField(max_digits=10, decimal_places=2, default=0.0)
 
     def __str__(self):
-        return f'Reserva {self.id} - {self.cliente}'
+        return f'Reserva de {self.nombre} {self.apellidos} del {self.fecha_inicio} al {self.fecha_fin}'
 
 class Pago(models.Model):
     reserva = models.ForeignKey(Reserva, on_delete=models.CASCADE)

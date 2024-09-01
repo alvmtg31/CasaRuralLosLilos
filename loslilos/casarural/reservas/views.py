@@ -23,6 +23,11 @@ def la_casa(request):
     return render(request, 'reservas/la_casa.html')
 
 
+from django.core.mail import send_mail
+from django.shortcuts import render
+from datetime import datetime
+from .models import Reserva
+
 def reservar(request):
     if request.method == 'POST':
         nombre = request.POST.get('nombre')
@@ -32,20 +37,45 @@ def reservar(request):
         direccion = request.POST.get('direccion')
         personas = request.POST.get('personas')
         comentario = request.POST.get('comentario')
-        fecha_entrada = request.POST.get('fecha_entrada')
-        fecha_salida = request.POST.get('fecha_salida')
+        fecha_inicio = request.POST.get('fecha_entrada')  # Cambiado a fecha_inicio
+        fecha_fin = request.POST.get('fecha_salida')      # Cambiado a fecha_fin
+
+        # Convertir fechas de entrada y salida
+        fecha_inicio = datetime.strptime(fecha_inicio, '%Y-%m-%d').date()
+        fecha_fin = datetime.strptime(fecha_fin, '%Y-%m-%d').date()
+
+        # Comprobar disponibilidad
+        reservas_existentes = Reserva.objects.filter(
+            fecha_inicio__lt=fecha_fin, 
+            fecha_fin__gt=fecha_inicio
+        )
+
+        if reservas_existentes.exists():
+            # Si hay una reserva existente en esas fechas, mostrar un mensaje de error
+            error_message = "Las fechas seleccionadas ya están reservadas. Por favor, elige diferentes fechas."
+            return render(request, 'reservas/reservas.html', {'error_message': error_message})
 
         # Calcular el número de noches
-        if fecha_entrada and fecha_salida:
-            fecha_entrada = datetime.strptime(fecha_entrada, '%Y-%m-%d')
-            fecha_salida = datetime.strptime(fecha_salida, '%Y-%m-%d')
-            diferencia_dias = (fecha_salida - fecha_entrada).days
-            if diferencia_dias > 0:
-                precio_total = diferencia_dias * 70
-            else:
-                precio_total = 0
+        diferencia_dias = (fecha_fin - fecha_inicio).days
+        if diferencia_dias > 0:
+            precio_total = diferencia_dias * 70
         else:
             precio_total = 0
+
+        # Crear la nueva reserva y guardar en la base de datos
+        nueva_reserva = Reserva(
+            nombre=nombre,
+            apellidos=apellidos,
+            email=email,
+            telefono=telefono,
+            direccion=direccion,
+            personas=personas,
+            comentario=comentario,
+            fecha_inicio=fecha_inicio,
+            fecha_fin=fecha_fin,
+            precio_total=precio_total
+        )
+        nueva_reserva.save()  # Guardar la reserva en la base de datos
 
         # Construir el mensaje del correo electrónico
         asunto = 'Confirmación de Reserva - Casa Rural'
@@ -59,8 +89,8 @@ def reservar(request):
         Teléfono: {telefono}
         Dirección: {direccion}
         Número de personas: {personas}
-        Fecha de entrada: {fecha_entrada.date()}
-        Fecha de salida: {fecha_salida.date()}
+        Fecha de entrada: {fecha_inicio}
+        Fecha de salida: {fecha_fin}
         Comentario adicional: {comentario}
         Precio total: {precio_total:.2f} euros
 
@@ -81,6 +111,7 @@ def reservar(request):
         return render(request, 'reservas/reserva_confirmada.html', {'nombre': nombre, 'precio_total': precio_total})
 
     return render(request, 'reservas/reservas.html')
+
 
 def entorno(request):
     return render(request, 'reservas/entorno.html')
