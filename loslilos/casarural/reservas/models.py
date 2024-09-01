@@ -22,29 +22,26 @@ class CasaRural(models.Model):
         return self.nombre
 
 class Cliente(models.Model):
-    nombre = models.CharField(max_length=255)
-    apellidos = models.CharField(max_length=255)
-    email = models.EmailField(unique=True)
-    telefono = models.CharField(max_length=20, blank=True, null=True)
-    direccion = models.CharField(max_length=255, blank=True, null=True)
+    nombre = models.CharField(max_length=100)
+    apellidos = models.CharField(max_length=100, blank=True, null=True)
+    email = models.EmailField()
+    telefono = models.CharField(max_length=15)
+    direccion = models.CharField(max_length=200, blank=True, null=True)
+    comentario_cliente = models.TextField(blank=True, null=True)  # Campo para comentario del cliente
 
     def __str__(self):
         return f'{self.nombre} {self.apellidos}'
 
 class Reserva(models.Model):
-    nombre = models.CharField(max_length=100)
-    apellidos = models.CharField(max_length=100, default='Apellido')
-    email = models.EmailField()
-    telefono = models.CharField(max_length=15)
-    direccion = models.CharField(max_length=200)
+    cliente = models.ForeignKey(Cliente, on_delete=models.CASCADE, related_name='reservas')
     personas = models.PositiveIntegerField()
-    comentario = models.TextField(blank=True, null=True)
-    fecha_inicio = models.DateField()  # Fecha de entrada
-    fecha_fin = models.DateField()     # Fecha de salida
+    fecha_inicio = models.DateField()
+    fecha_fin = models.DateField()
     precio_total = models.DecimalField(max_digits=10, decimal_places=2, default=0.0)
+    comentario = models.TextField(blank=True, null=True)  # Campo para comentario de reserva
 
     def __str__(self):
-        return f'Reserva de {self.nombre} {self.apellidos} del {self.fecha_inicio} al {self.fecha_fin}'
+        return f'Reserva de {self.cliente.nombre} del {self.fecha_inicio} al {self.fecha_fin}'
 
 class Pago(models.Model):
     reserva = models.ForeignKey(Reserva, on_delete=models.CASCADE)

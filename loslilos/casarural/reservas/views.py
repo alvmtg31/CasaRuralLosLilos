@@ -1,5 +1,5 @@
 from datetime import datetime
-
+from django.conf import settings
 from django.contrib.auth import authenticate, login
 from django.http import request
 from django.core.mail import send_mail
@@ -40,76 +40,75 @@ def reservar(request):
         fecha_entrada = request.POST.get('fecha_entrada')
         fecha_salida = request.POST.get('fecha_salida')
 
-        if fecha_entrada and fecha_salida:
-            fecha_entrada = datetime.strptime(fecha_entrada, '%Y-%m-%d')
-            fecha_salida = datetime.strptime(fecha_salida, '%Y-%m-%d')
+        # Crear o recuperar el cliente
+        cliente, created = Cliente.objects.get_or_create(
+            nombre=nombre,
+            apellidos=apellidos,
+            email=email,
+            telefono=telefono,
+            direccion=direccion,
+            comentario_cliente=comentario
+        )
 
-            # Verificar si ya hay una reserva en el rango de fechas
-            reservas_existentes = Reserva.objects.filter(
-                fecha_inicio__lt=fecha_salida,
-                fecha_fin__gt=fecha_entrada
-            )
-            
-            if reservas_existentes.exists():
-                mensaje_error = "Lo sentimos, la casa ya está reservada en las fechas seleccionadas. Por favor, elige otras fechas."
-                return render(request, 'reservas/reservas.html', {'mensaje_error': mensaje_error})
+        # Verificar si la fecha está disponible
+        reservas_existentes = Reserva.objects.filter(
+            fecha_inicio__lt=fecha_salida,
+            fecha_fin__gt=fecha_entrada
+        )
 
-            # Calcular el número de noches
-            diferencia_dias = (fecha_salida - fecha_entrada).days
-            if diferencia_dias > 0:
-                precio_total = diferencia_dias * 70
-            else:
-                precio_total = 0
+        if reservas_existentes.exists():
+            # Mostrar mensaje de disponibilidad
+            return render(request, 'reservas/reservas.html', {'error': 'La casa está reservada para las fechas seleccionadas.'})
 
-            # Crear una nueva reserva
-            reserva = Reserva(
-                nombre=nombre,
-                apellidos=apellidos,
-                email=email,
-                telefono=telefono,
-                direccion=direccion,
-                personas=personas,
-                comentario=comentario,
-                fecha_inicio=fecha_entrada,
-                fecha_fin=fecha_salida,
-                precio_total=precio_total
-            )
-            reserva.save()
+        # Calcular el precio
+        fecha_entrada = datetime.strptime(fecha_entrada, '%Y-%m-%d').date()
+        fecha_salida = datetime.strptime(fecha_salida, '%Y-%m-%d').date()
+        diferencia_dias = (fecha_salida - fecha_entrada).days
+        precio_total = diferencia_dias * 70
 
-            # Construir el mensaje del correo electrónico
-            asunto = 'Confirmación de Reserva - Casa Rural'
-            mensaje = f"""
-            Hola {nombre} {apellidos},
+        # Crear la reserva
+        reserva = Reserva.objects.create(
+            cliente=cliente,
+            personas=personas,
+            fecha_inicio=fecha_entrada,
+            fecha_fin=fecha_salida,
+            precio_total=precio_total,
+            comentario=comentario
+        )
 
-            Gracias por hacer una reserva con nosotros. Aquí están los detalles de tu reserva:
+        # Enviar el correo de confirmación
+        subject = 'Confirmación de Reserva'
+        message = f'''
+        Estimado {nombre} {apellidos},
 
-            Nombre: {nombre} {apellidos}
-            Email: {email}
-            Teléfono: {telefono}
-            Dirección: {direccion}
-            Número de personas: {personas}
-            Fecha de entrada: {fecha_entrada.date()}
-            Fecha de salida: {fecha_salida.date()}
-            Comentario adicional: {comentario}
-            Precio total: {precio_total:.2f} euros
+        Su reserva ha sido confirmada con éxito.
 
-            El pago se realizará en efectivo en el alojamiento.
+        Fechas de la reserva:
+        - Fecha de entrada: {fecha_entrada}
+        - Fecha de salida: {fecha_salida}
+        
+        Número de personas: {personas}
+        Precio total: {precio_total} euros
 
-            ¡Esperamos verte pronto!
+        Comentario adicional: {comentario}
 
-            Saludos,
-            Casa Rural Los Lilos
-            """
-            from_email = 'tu_email@dominio.com'  # Reemplaza con tu dirección de correo electrónico
-            to_email = email  # Dirección del destinatario
+        Gracias por elegir nuestra casa rural.
 
-            # Configura el backend del correo electrónico
-            send_mail(asunto, mensaje, from_email, [to_email])
+        Saludos,
+        El equipo de Casa Rural
+        '''
+        from_email = settings.EMAIL_HOST_USER
+        recipient_list = [email]
 
-            # Redirigir a una página de confirmación
-            return render(request, 'reservas/reserva_confirmada.html', {'nombre': nombre, 'precio_total': precio_total})
+        send_mail(subject, message, from_email, recipient_list)
+
+        # Redireccionar a la página de confirmación
+        return redirect('reserva_confirmada')
 
     return render(request, 'reservas/reservas.html')
+
+def reserva_confirmada(request):
+    return render(request, 'reservas/reserva_confirmada.html')
 
 
 def entorno(request):

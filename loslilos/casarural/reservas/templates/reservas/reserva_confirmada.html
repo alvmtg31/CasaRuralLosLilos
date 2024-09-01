@@ -2,8 +2,6 @@
 
 {% block title %}Gracias por tu Reserva - Casa Rural{% endblock %}
 
-{% load static %}
-
 {% block content %}
 <!DOCTYPE html>
 <html lang="es">
@@ -12,51 +10,69 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <style>
         body {
-            font-family: Arial, sans-serif;
+            font-family: Nexa, sans-serif;
+            background-color: #f2f2f2;
             margin: 0;
             padding: 0;
-            background-color: #f0f8ff;
         }
+
         .container {
-            width: 80%;
-            margin: 0 auto;
+            max-width: 600px;
+            margin: 50px auto;
             padding: 20px;
-        }
-        .thank-you-message {
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
             text-align: center;
-            margin-top: 50px;
         }
-        .thank-you-message h1 {
+
+        h1 {
             color: #28a745;
+            font-size: 2em;
+            margin-bottom: 20px;
         }
-        .thank-you-message p {
-            font-size: 18px;
+
+        p {
+            font-size: 1.2em;
             color: #333;
+            margin-bottom: 20px;
         }
-        .thank-you-message a {
+
+        a {
             color: #007bff;
             text-decoration: none;
             font-weight: bold;
         }
-        .thank-you-message a:hover {
+
+        a:hover {
             text-decoration: underline;
         }
+
         .additional-info {
             margin-top: 30px;
+        }
+
+        .additional-info h2 {
+            color: #333;
+            font-size: 1.5em;
+            margin-bottom: 15px;
+        }
+
+        .additional-info p {
+            font-size: 1em;
+            color: #555;
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <div class="thank-you-message">
-            <h1>¡Gracias por tu Reserva!</h1>
-            <p>Tu reserva ha sido recibida y estamos encantados de confirmarla. En breve, te enviaremos un correo electrónico con los detalles de tu estancia.</p>
-            <p>Si tienes alguna pregunta o necesitas realizar cambios en tu reserva, no dudes en <a href="mailto:info@casarural.com">contactarnos</a>.</p>
-        </div>
+        <h1>¡Gracias por tu Reserva!</h1>
+        <p>Tu reserva ha sido recibida y estamos encantados de confirmarla. En breve, te enviaremos un correo electrónico con los detalles de tu estancia.</p>
+        <p>Si tienes alguna pregunta o necesitas realizar cambios en tu reserva, no dudes en <a href="mailto:info@casarural.com">contactarnos</a>.</p>
         
         <div class="additional-info">
             <h2>Información Adicional</h2>
-            <p>Recuerda que el pago se realizará en efectivo en el alojamiento. Para más detalles sobre cómo llegar y qué esperar durante tu estancia, por favor, consulta nuestro.</p>
+            <p>Recuerda que el pago se realizará en efectivo en el alojamiento. Para más detalles sobre cómo llegar y qué esperar durante tu estancia, por favor, consulta nuestro sitio web.</p>
         </div>
     </div>
 </body>
