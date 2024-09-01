@@ -33,7 +33,7 @@ class Cliente(models.Model):
 
 class Reserva(models.Model):
     nombre = models.CharField(max_length=100)
-    apellidos = models.CharField(max_length=100, default='Apellido')  # Valor predeterminado agregado aquí
+    apellidos = models.CharField(max_length=100, default='Apellido')
     email = models.EmailField()
     telefono = models.CharField(max_length=15)
     direccion = models.CharField(max_length=200)
